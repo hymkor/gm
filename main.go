@@ -10,7 +10,10 @@ import (
 	"path/filepath"
 
 	"github.com/hymkor/go-multiline-ny"
+	"github.com/hymkor/go-readline-skk"
 	"github.com/mattn/go-colorable"
+	"github.com/nyaosorg/go-readline-ny"
+	"github.com/nyaosorg/go-readline-ny/keys"
 )
 
 func load(filename string) ([]string, error) {
@@ -40,7 +43,26 @@ func save(fn string, lines []string) error {
 	return fd.Close()
 }
 
-var flagMoveEnd = flag.Bool("move-end", false, "Move cursor to end of file")
+var (
+	flagMoveEnd = flag.Bool("move-end", false, "Move cursor to end of file")
+	flagSKK     = flag.String("skk", "", "Enable SKK and Specify JISYO-Path")
+)
+
+type queryPrompter struct {
+	ed *multiline.Editor
+}
+
+func (q *queryPrompter) Prompt(w io.Writer, prompt string) (int, error) {
+	return fmt.Fprintf(w, "\rNew Candidate for \"%s\": ", prompt)
+}
+
+func (q *queryPrompter) LineFeed(w io.Writer) (int, error) {
+	return fmt.Fprintf(w, "\r\x1B[0;32;1m%2d\x1B[0;37;1m ", q.ed.CursorLine()+1)
+}
+
+func (q *queryPrompter) Recurse(originalPrompt string) skk.QueryPrompter {
+	return &skk.QueryOnCurrentLine{OriginalPrompt: originalPrompt}
+}
 
 func progName(path string) string {
 	return filepath.Base(path[:len(path)-len(filepath.Ext(path))])
@@ -62,6 +84,14 @@ func mains(args []string) error {
 	ed.SetWriter(colorable.NewColorableStdout())
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
+
+	if *flagSKK != "" {
+		skk1, err := skk.Load("", *flagSKK)
+		if err == nil {
+			readline.GlobalKeyMap.BindKey(keys.CtrlX, skk1)
+			skk1.QueryPrompter = &queryPrompter{ed: &ed}
+		}
+	}
 
 	ctx := context.Background()
 	lines, err = ed.Read(ctx)
