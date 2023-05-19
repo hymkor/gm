@@ -1,7 +1,9 @@
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
-github.com/hymkor/go-multiline-ny v0.9.1 h1:MdGaho3fFmPCJ3mSV4OzuPdSASOJIRXj3D/rvTGoDLs=
-github.com/hymkor/go-multiline-ny v0.9.1/go.mod h1:aatFJ9Ld3gORJpUtbSeWBw3uic3q2hSNdibhNVZ2FEo=
+github.com/hymkor/go-multiline-ny v0.10.0 h1:Gsk6PLZUndEq4sHFEfMEwDoOKwcGhH1u7tnvfWXPD9Q=
+github.com/hymkor/go-multiline-ny v0.10.0/go.mod h1:aatFJ9Ld3gORJpUtbSeWBw3uic3q2hSNdibhNVZ2FEo=
+github.com/hymkor/go-readline-skk v0.0.0-20230514132453-6423ff67ab7b h1:w1/orEmugL9KgWsJZ61vnILogOULr7c6aNe21KeN7SM=
+github.com/hymkor/go-readline-skk v0.0.0-20230514132453-6423ff67ab7b/go.mod h1:lyqBtYvMoiC7eocRQ9guwXz4+n6lMGmM+61u4texjHE=
 github.com/mattn/go-colorable v0.1.4/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
@@ -29,3 +31,5 @@ golang.org/x/sys v0.8.0 h1:EBmGv8NaZBZTWvrbjNoL6HVt+IVy3QDQpJs7VRIw3tU=
 golang.org/x/sys v0.8.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.8.0 h1:n5xxQn2i3PC0yLAbjTpNT85q/Kgzcr2gIoX9OrJUols=
 golang.org/x/term v0.8.0/go.mod h1:xPskH00ivmX89bAKVGSKKtLOWNx2+17Eiy94tnKShWo=
+golang.org/x/text v0.9.0 h1:2sjJmO8cDvYveuX97RDLsxlyUxLl+GHoLxBiRdHllBE=
+golang.org/x/text v0.9.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=
