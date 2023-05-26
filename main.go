@@ -68,6 +68,27 @@ func progName(path string) string {
 	return filepath.Base(path[:len(path)-len(filepath.Ext(path))])
 }
 
+type CtrlX struct {
+	readline.KeyMap
+}
+
+func (cx *CtrlX) String() string {
+	return ""
+}
+
+func (cx *CtrlX) Call(ctx context.Context, B *readline.Buffer) readline.Result {
+	// B.InsertAndRepaint(string(keys.CtrlX))
+	key, err := B.GetKey()
+	if err != nil {
+		return readline.CONTINUE
+	}
+	f, ok := cx.KeyMap.Lookup(keys.Code(key))
+	if !ok {
+		return readline.CONTINUE
+	}
+	return f.Call(ctx, B)
+}
+
 func mains(args []string) error {
 	if len(args) <= 0 {
 		return fmt.Errorf("Usage: %s FILENAME", progName(os.Args[0]))
@@ -85,10 +106,14 @@ func mains(args []string) error {
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 
+	ctrlX := &CtrlX{}
+	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
+	ed.BindKey(keys.CtrlX, ctrlX)
+
 	if *flagSKK != "" {
 		skk1, err := skk.Load("", *flagSKK)
 		if err == nil {
-			readline.GlobalKeyMap.BindKey(keys.CtrlX, skk1)
+			ed.LineEditor.BindKey(keys.CtrlJ, skk1)
 			skk1.QueryPrompter = &queryPrompter{ed: &ed}
 		}
 	}
