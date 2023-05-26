@@ -89,6 +89,10 @@ func (cx *CtrlX) Call(ctx context.Context, B *readline.Buffer) readline.Result {
 	return f.Call(ctx, B)
 }
 
+func noOperation(_ context.Context, _ *readline.Buffer) readline.Result {
+	return readline.CONTINUE
+}
+
 func mains(args []string) error {
 	if len(args) <= 0 {
 		return fmt.Errorf("Usage: %s FILENAME", progName(os.Args[0]))
@@ -109,6 +113,7 @@ func mains(args []string) error {
 	ctrlX := &CtrlX{}
 	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
 	ed.BindKey(keys.CtrlX, ctrlX)
+	ed.BindKey(keys.CtrlC, readline.AnonymousCommand(noOperation))
 
 	if *flagSKK != "" {
 		skk1, err := skk.Load("", *flagSKK)
