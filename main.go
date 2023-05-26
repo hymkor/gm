@@ -93,6 +93,39 @@ func noOperation(_ context.Context, _ *readline.Buffer) readline.Result {
 	return readline.CONTINUE
 }
 
+type cmdSave struct {
+	ed       *multiline.Editor
+	filename string
+}
+
+func (c *cmdSave) String() string {
+	return "save to " + c.filename
+}
+
+func alert(ctx context.Context, B *readline.Buffer, s string) readline.Result {
+	fmt.Fprintf(B.Out, "\r%s\r", s)
+	key, err := B.GetKey()
+	B.RepaintAll()
+	if err == nil {
+		return B.LookupCommand(key).Call(ctx, B)
+	}
+	return readline.CONTINUE
+}
+
+func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result {
+	lines := c.ed.Lines()
+	current := c.ed.CursorLine()
+	if current < len(lines) {
+		lines[current] = B.String()
+	} else {
+		lines = append(lines, B.String())
+	}
+	if err := save(c.filename, lines); err != nil {
+		return alert(ctx, B, err.Error())
+	}
+	return alert(ctx, B, "saved as "+c.filename)
+}
+
 func mains(args []string) error {
 	if len(args) <= 0 {
 		return fmt.Errorf("Usage: %s FILENAME", progName(os.Args[0]))
@@ -112,6 +145,7 @@ func mains(args []string) error {
 
 	ctrlX := &CtrlX{}
 	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
+	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: args[0]})
 	ed.BindKey(keys.CtrlX, ctrlX)
 	ed.BindKey(keys.CtrlC, readline.AnonymousCommand(noOperation))
 
@@ -128,7 +162,7 @@ func mains(args []string) error {
 	if err != nil {
 		return err
 	}
-	return save(args[0], lines)
+	return nil
 }
 
 func main() {
