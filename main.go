@@ -2,7 +2,10 @@ package main
 
 import (
 	"bufio"
+	"bytes"
+	"compress/bzip2"
 	"context"
+	_ "embed"
 	"flag"
 	"fmt"
 	"io"
@@ -15,6 +18,9 @@ import (
 	"github.com/nyaosorg/go-readline-ny"
 	"github.com/nyaosorg/go-readline-ny/keys"
 )
+
+//go:embed SKK-JISYO.L.bz2
+var skkJisyoLbz2 []byte
 
 func load(filename string) ([]string, error) {
 	fd, err := os.Open(filename)
@@ -154,13 +160,10 @@ func mains(args []string) error {
 	ed.BindKey(keys.CtrlX, ctrlX)
 	ed.BindKey(keys.CtrlC, readline.AnonymousCommand(noOperation))
 
-	if *flagSKK != "" {
-		skk1, err := skk.Load("", *flagSKK)
-		if err == nil {
-			ed.LineEditor.BindKey(keys.CtrlJ, skk1)
-			skk1.QueryPrompter = &queryPrompter{ed: &ed}
-		}
-	}
+	skk1 := skk.New()
+	skk1.QueryPrompter = &queryPrompter{ed: &ed}
+	skk1.System.ReadEucJp(bzip2.NewReader(bytes.NewReader(skkJisyoLbz2)))
+	ed.LineEditor.BindKey(keys.CtrlJ, skk1)
 
 	ctx := context.Background()
 	lines, err = ed.Read(ctx)
