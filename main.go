@@ -49,15 +49,18 @@ var (
 )
 
 type queryPrompter struct {
-	ed *multiline.Editor
+	ed     *multiline.Editor
+	rewind func()
 }
 
 func (q *queryPrompter) Prompt(w io.Writer, prompt string) (int, error) {
-	return fmt.Fprintf(w, "\rNew Candidate for \"%s\": ", prompt)
+	q.rewind = q.ed.GotoEndLine()
+	return fmt.Fprintf(w, "New Candidate for \"%s\": ", prompt)
 }
 
 func (q *queryPrompter) LineFeed(w io.Writer) (int, error) {
-	return fmt.Fprintf(w, "\r\x1B[0;32;1m%2d\x1B[0;37;1m ", q.ed.CursorLine()+1)
+	q.rewind()
+	return 0, nil
 }
 
 func (q *queryPrompter) Recurse(originalPrompt string) skk.QueryPrompter {
