@@ -102,9 +102,11 @@ func (c *cmdSave) String() string {
 	return "save to " + c.filename
 }
 
-func alert(ctx context.Context, B *readline.Buffer, s string) readline.Result {
-	fmt.Fprintf(B.Out, "\r%s\r", s)
+func alert(ctx context.Context, B *readline.Buffer, m *multiline.Editor, s string) readline.Result {
+	rewind := m.GotoEndLine()
+	io.WriteString(B.Out, s)
 	key, err := B.GetKey()
+	rewind()
 	B.RepaintAll()
 	if err == nil {
 		return B.LookupCommand(key).Call(ctx, B)
@@ -121,9 +123,9 @@ func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result 
 		lines = append(lines, B.String())
 	}
 	if err := save(c.filename, lines); err != nil {
-		return alert(ctx, B, err.Error())
+		return alert(ctx, B, c.ed, err.Error())
 	}
-	return alert(ctx, B, "saved as "+c.filename)
+	return alert(ctx, B, c.ed, "saved as "+c.filename)
 }
 
 func mains(args []string) error {
