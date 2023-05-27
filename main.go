@@ -159,6 +159,7 @@ func mains(args []string) error {
 	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: args[0]})
 	ed.BindKey(keys.CtrlX, ctrlX)
 	ed.BindKey(keys.CtrlC, readline.AnonymousCommand(noOperation))
+	ed.BindKey(keys.Escape, readline.AnonymousCommand(noOperation))
 
 	skk1 := skk.New()
 	skk1.QueryPrompter = &queryPrompter{ed: &ed}
