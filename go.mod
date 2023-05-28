@@ -3,15 +3,15 @@ module github.com/hymkor/gm
 go 1.20
 
 require (
-	github.com/hymkor/go-multiline-ny v0.10.0
-	github.com/hymkor/go-readline-skk v0.0.0-20230514132453-6423ff67ab7b
+	github.com/hymkor/go-multiline-ny v0.11.1
+	github.com/hymkor/go-readline-skk v0.0.0-20230528135458-f1ee57fece6e
 	github.com/mattn/go-colorable v0.1.13
-	github.com/nyaosorg/go-readline-ny v0.12.3
+	github.com/nyaosorg/go-readline-ny v0.13.1
 )
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
-	github.com/mattn/go-isatty v0.0.18 // indirect
+	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-tty v0.0.5 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
