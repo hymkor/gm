@@ -77,31 +77,6 @@ func progName(path string) string {
 	return filepath.Base(path[:len(path)-len(filepath.Ext(path))])
 }
 
-type CtrlX struct {
-	readline.KeyMap
-}
-
-func (cx *CtrlX) String() string {
-	return ""
-}
-
-func (cx *CtrlX) Call(ctx context.Context, B *readline.Buffer) readline.Result {
-	// B.InsertAndRepaint(string(keys.CtrlX))
-	key, err := B.GetKey()
-	if err != nil {
-		return readline.CONTINUE
-	}
-	f, ok := cx.KeyMap.Lookup(keys.Code(key))
-	if !ok {
-		return readline.CONTINUE
-	}
-	return f.Call(ctx, B)
-}
-
-func noOperation(_ context.Context, _ *readline.Buffer) readline.Result {
-	return readline.CONTINUE
-}
-
 type cmdSave struct {
 	ed       *multiline.Editor
 	filename string
@@ -154,12 +129,10 @@ func mains(args []string) error {
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 
-	ctrlX := &CtrlX{}
+	ctrlX := &multiline.PrefixCommand{}
 	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
 	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: args[0]})
 	ed.BindKey(keys.CtrlX, ctrlX)
-	ed.BindKey(keys.CtrlC, readline.AnonymousCommand(noOperation))
-	ed.BindKey(keys.Escape, readline.AnonymousCommand(noOperation))
 
 	skk1 := skk.New()
 	skk1.QueryPrompter = &queryPrompter{ed: &ed}
