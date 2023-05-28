@@ -121,6 +121,9 @@ func mains(args []string) error {
 		return err
 	}
 
+	f := colorable.EnableColorsStdout(nil)
+	defer f()
+
 	var ed multiline.Editor
 	ed.SetPrompt(func(w io.Writer, lnum int) (int, error) {
 		return fmt.Fprintf(w, "\x1B[0;32;1m%2d\x1B[0;37;1m ", lnum+1)
