@@ -25,5 +25,20 @@ gm ファイル名
 
 まだ開発中なので、バイナリはリリースしていません。
 
-make すると、curl で [skk-dev/dict](https://github.com/skk-dev/dict) から SKK-JISYO.L をダウンロードして、bzip2 で圧縮したものを作成します。
-そして、それは Go の embedパッケージで、実行可能ファイルの中に組み込まれます。
+make すると curl で [skk-dev/dict] から SKK-JISYO.L をダウンロードして、bzip2 で圧縮します。
+作成された SKK-JISYO.L.bz2 は Go の embedパッケージで、実行可能ファイルの中に組み込まれます。
+
+[skk-dev/dict]: https://github.com/skk-dev/dict
+
+使っているパッケージ
+--------------------
+
+- [go-readline-ny] 一行入力用パッケージ
+- [go-multiline-ny] Ctrl-P/N が押下されるたびに、上下の行に [go-readline-ny] の一行入力を移動させるという荒技で簡易テキストエディターを実現するパッケージ
+- [go-readline-skk] なんちゃってSKK
+
+本ツールは実は [go-readline-skk]、[go-multiline-ny] のテスト用ツールという位置付けだったりします。
+
+[go-readline-ny]: https://github.com/nyaosorg/go-readline-ny
+[go-readline-skk]: https://github.com/hymkor/go-readline-skk
+[go-multiline-ny]: https://github.com/hymkor/go-multiline-ny
