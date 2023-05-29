@@ -2,8 +2,8 @@ github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
 github.com/hymkor/go-multiline-ny v0.11.1 h1:H7ZacXNsAOW/lcl7t0EBBYqTRj0Jm12UohMAVVw959I=
 github.com/hymkor/go-multiline-ny v0.11.1/go.mod h1:+bpdDKG4hm/Ue9OvDiVWd4qyKRMO9kRYtqDrro4MGnQ=
-github.com/hymkor/go-readline-skk v0.0.0-20230528135458-f1ee57fece6e h1:ZhiLZLr8K0YrB4kT5HjyYy7N5xcKEiO6UAuAW/w+efU=
-github.com/hymkor/go-readline-skk v0.0.0-20230528135458-f1ee57fece6e/go.mod h1:ZOVaOzwud0PTZJUm2xJ/4mjA61RdrjxlPMDmD/olc4M=
+github.com/hymkor/go-readline-skk v0.0.0-20230529073956-013451672a72 h1:S+4S+MeCoccQt1D+gEUx2utVmP+qAoUUeVnfRGPxtG0=
+github.com/hymkor/go-readline-skk v0.0.0-20230529073956-013451672a72/go.mod h1:ZOVaOzwud0PTZJUm2xJ/4mjA61RdrjxlPMDmD/olc4M=
 github.com/mattn/go-colorable v0.1.4/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
