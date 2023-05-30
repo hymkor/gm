@@ -112,6 +112,16 @@ func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result 
 	return alert(ctx, B, c.ed, "saved as "+c.filename)
 }
 
+type noOperation struct{}
+
+func (noOperation) String() string {
+	return "NO_OPERATION"
+}
+
+func (noOperation) Call(context.Context, *readline.Buffer) readline.Result {
+	return readline.CONTINUE
+}
+
 func mains(args []string) error {
 	if len(args) <= 0 {
 		return fmt.Errorf("Usage: %s FILENAME", progName(os.Args[0]))
@@ -131,6 +141,8 @@ func mains(args []string) error {
 	ed.SetWriter(colorable.NewColorableStdout())
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
+
+	ed.BindKey(keys.CtrlC, noOperation{})
 
 	ctrlX := &multiline.PrefixCommand{}
 	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
