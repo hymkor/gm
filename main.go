@@ -51,7 +51,6 @@ func save(fn string, lines []string) error {
 
 var (
 	flagMoveEnd = flag.Bool("move-end", false, "Move cursor to end of file")
-	flagSKK     = flag.String("skk", "", "Enable SKK and Specify JISYO-Path")
 )
 
 type queryPrompter struct {
@@ -124,7 +123,7 @@ func (noOperation) Call(context.Context, *readline.Buffer) readline.Result {
 
 func mains(args []string) error {
 	if len(args) <= 0 {
-		return fmt.Errorf("Usage: %s FILENAME", progName(os.Args[0]))
+		return fmt.Errorf("usage: %s FILENAME", progName(os.Args[0]))
 	}
 	lines, err := load(args[0])
 	if err != nil {
@@ -155,7 +154,7 @@ func mains(args []string) error {
 	ed.LineEditor.BindKey(keys.CtrlJ, skk1)
 
 	ctx := context.Background()
-	lines, err = ed.Read(ctx)
+	_, err = ed.Read(ctx)
 	if err != nil {
 		return err
 	}
