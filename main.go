@@ -53,23 +53,23 @@ var (
 	flagMoveEnd = flag.Bool("move-end", false, "Move cursor to end of file")
 )
 
-type queryPrompter struct {
+type miniBuffer struct {
 	ed     *multiline.Editor
 	rewind func()
 }
 
-func (q *queryPrompter) Prompt(w io.Writer, prompt string) (int, error) {
+func (q *miniBuffer) Enter(w io.Writer, prompt string) (int, error) {
 	q.rewind = q.ed.GotoEndLine()
 	return fmt.Fprintf(w, "New Candidate for \"%s\": ", prompt)
 }
 
-func (q *queryPrompter) LineFeed(w io.Writer) (int, error) {
+func (q *miniBuffer) Leave(w io.Writer) (int, error) {
 	q.rewind()
 	return 0, nil
 }
 
-func (q *queryPrompter) Recurse(originalPrompt string) skk.QueryPrompter {
-	return &skk.QueryOnCurrentLine{OriginalPrompt: originalPrompt}
+func (q *miniBuffer) Recurse(originalPrompt string) skk.MiniBuffer {
+	return &skk.MiniBufferOnCurrentLine{OriginalPrompt: originalPrompt}
 }
 
 func progName(path string) string {
@@ -149,7 +149,7 @@ func mains(args []string) error {
 	ed.BindKey(keys.CtrlX, ctrlX)
 
 	skk1 := skk.New()
-	skk1.QueryPrompter = &queryPrompter{ed: &ed}
+	skk1.MiniBuffer = &miniBuffer{ed: &ed}
 	skk1.System.ReadEucJp(bzip2.NewReader(bytes.NewReader(skkJisyoLbz2)))
 	ed.LineEditor.BindKey(keys.CtrlJ, skk1)
 
