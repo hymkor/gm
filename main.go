@@ -60,7 +60,7 @@ type miniBuffer struct {
 
 func (q *miniBuffer) Enter(w io.Writer, prompt string) (int, error) {
 	q.rewind = q.ed.GotoEndLine()
-	return fmt.Fprintf(w, "New Candidate for \"%s\": ", prompt)
+	return io.WriteString(w, prompt)
 }
 
 func (q *miniBuffer) Leave(w io.Writer) (int, error) {
