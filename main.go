@@ -86,6 +86,15 @@ func (c *cmdSave) String() string {
 	return "save to " + c.filename
 }
 
+func askKey(B *readline.Buffer, m *multiline.Editor, s string) (string, error) {
+	rewind := m.GotoEndLine()
+	io.WriteString(B.Out, s)
+	key, err := B.GetKey()
+	io.WriteString(B.Out, "\x1B[2K")
+	rewind()
+	return key, err
+}
+
 func alert(ctx context.Context, B *readline.Buffer, m *multiline.Editor, s string) readline.Result {
 	rewind := m.GotoEndLine()
 	io.WriteString(B.Out, s)
@@ -141,6 +150,7 @@ func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result 
 	if err := save(fname, lines, flag); err != nil {
 		return alert(ctx, B, c.ed, err.Error())
 	}
+	c.ed.Dirty = false
 	c.filename = fname
 	return alert(ctx, B, c.ed, "saved as "+c.filename)
 }
@@ -180,7 +190,25 @@ func mains(args []string) error {
 	ed.BindKey(keys.CtrlC, noOperation{})
 
 	ctrlX := &multiline.PrefixCommand{}
-	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
+	ctrlX.BindKey(keys.CtrlC, &readline.GoCommand{
+		Name: "Quit",
+		Func: func(ctx context.Context, B *readline.Buffer) readline.Result {
+			ed.Sync(B.String())
+			if ed.Dirty {
+				answer, err := askKey(B, &ed, "the file is not saved. Quit sure ? (y/n) ")
+				if err != nil {
+					alert(ctx, B, &ed, err.Error())
+					B.RepaintAll()
+					return readline.CONTINUE
+				}
+				if answer != "y" && answer != "Y" {
+					B.RepaintAll()
+					return readline.CONTINUE
+				}
+			}
+			return ed.Submit(ctx, B)
+		},
+	})
 	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: filename})
 	ed.BindKey(keys.CtrlX, ctrlX)
 
