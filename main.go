@@ -16,6 +16,7 @@ import (
 	"github.com/hymkor/go-readline-skk"
 	"github.com/mattn/go-colorable"
 	"github.com/nyaosorg/go-readline-ny"
+	"github.com/nyaosorg/go-readline-ny/completion"
 	"github.com/nyaosorg/go-readline-ny/keys"
 )
 
@@ -38,8 +39,8 @@ func load(filename string) ([]string, error) {
 	return lines, nil
 }
 
-func save(fn string, lines []string) error {
-	fd, err := os.Create(fn)
+func save(fn string, lines []string, flag int) error {
+	fd, err := os.OpenFile(fn, flag, 0644)
 	if err != nil {
 		return err
 	}
@@ -89,12 +90,33 @@ func alert(ctx context.Context, B *readline.Buffer, m *multiline.Editor, s strin
 	rewind := m.GotoEndLine()
 	io.WriteString(B.Out, s)
 	key, err := B.GetKey()
+	io.WriteString(B.Out, "\x1B[2K")
 	rewind()
 	B.RepaintAll()
 	if err == nil {
 		return B.LookupCommand(key).Call(ctx, B)
 	}
 	return readline.CONTINUE
+}
+
+func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string, error) {
+	miniBuffer1 := &miniBuffer{
+		ed: me,
+	}
+	ed1 := &readline.Editor{
+		PromptWriter: func(w io.Writer) (int, error) {
+			return miniBuffer1.Enter(w, "Save filename: ")
+		},
+		LineFeedWriter: func(_ readline.Result, w io.Writer) (int, error) {
+			io.WriteString(w, "\x1B[2K")
+			return miniBuffer1.Leave(w)
+		},
+		Default: defaultText,
+	}
+	ed1.BindKey(keys.CtrlI, completion.CmdCompletion{
+		Completion: completion.File{},
+	})
+	return ed1.ReadLine(ctx)
 }
 
 func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result {
@@ -105,9 +127,21 @@ func (c *cmdSave) Call(ctx context.Context, B *readline.Buffer) readline.Result 
 	} else {
 		lines = append(lines, B.String())
 	}
-	if err := save(c.filename, lines); err != nil {
+	flag := os.O_WRONLY | os.O_CREATE | os.O_TRUNC
+	fname := c.filename
+	if fname == "" {
+		flag = os.O_WRONLY | os.O_CREATE | os.O_EXCL | os.O_TRUNC
+		text, err := ask(ctx, c.ed, c.filename)
+		B.RepaintAll()
+		if err != nil || text == "" {
+			return readline.CONTINUE
+		}
+		fname = text
+	}
+	if err := save(fname, lines, flag); err != nil {
 		return alert(ctx, B, c.ed, err.Error())
 	}
+	c.filename = fname
 	return alert(ctx, B, c.ed, "saved as "+c.filename)
 }
 
@@ -122,14 +156,16 @@ func (noOperation) Call(context.Context, *readline.Buffer) readline.Result {
 }
 
 func mains(args []string) error {
-	if len(args) <= 0 {
-		return fmt.Errorf("usage: %s FILENAME", progName(os.Args[0]))
+	var filename string
+	var lines []string
+	if len(args) > 0 {
+		var err error
+		lines, err = load(args[0])
+		if err != nil {
+			return err
+		}
+		filename = args[0]
 	}
-	lines, err := load(args[0])
-	if err != nil {
-		return err
-	}
-
 	f := colorable.EnableColorsStdout(nil)
 	defer f()
 
@@ -145,7 +181,7 @@ func mains(args []string) error {
 
 	ctrlX := &multiline.PrefixCommand{}
 	ctrlX.BindKey(keys.CtrlC, readline.AnonymousCommand(ed.Submit))
-	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: args[0]})
+	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: filename})
 	ed.BindKey(keys.CtrlX, ctrlX)
 
 	skk1 := skk.New()
@@ -154,7 +190,7 @@ func mains(args []string) error {
 	ed.LineEditor.BindKey(keys.CtrlJ, skk1)
 
 	ctx := context.Background()
-	_, err = ed.Read(ctx)
+	_, err := ed.Read(ctx)
 	if err != nil {
 		return err
 	}
