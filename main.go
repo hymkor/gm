@@ -13,11 +13,11 @@ import (
 	"path/filepath"
 
 	"github.com/hymkor/go-multiline-ny"
-	"github.com/hymkor/go-readline-skk"
 	"github.com/mattn/go-colorable"
 	"github.com/nyaosorg/go-readline-ny"
 	"github.com/nyaosorg/go-readline-ny/completion"
 	"github.com/nyaosorg/go-readline-ny/keys"
+	"github.com/nyaosorg/go-readline-skk"
 )
 
 //go:embed SKK-JISYO.L.bz2
@@ -212,13 +212,21 @@ func mains(args []string) error {
 	ctrlX.BindKey(keys.CtrlS, &cmdSave{ed: &ed, filename: filename})
 	ed.BindKey(keys.CtrlX, ctrlX)
 
-	skk1 := skk.New()
-	skk1.MiniBuffer = &miniBuffer{ed: &ed}
-	skk1.System.ReadEucJp(bzip2.NewReader(bytes.NewReader(skkJisyoLbz2)))
-	ed.LineEditor.BindKey(keys.CtrlJ, skk1)
+	skk1, err := skk.Config{
+		BindTo:         &ed.LineEditor,
+		KeepModeOnExit: true,
+	}.Setup()
+	if err != nil {
+		return err
+	}
 
+	skk1.MiniBuffer = &miniBuffer{ed: &ed}
+	err = skk1.System.Read(bzip2.NewReader(bytes.NewReader(skkJisyoLbz2)))
+	if err != nil {
+		return err
+	}
 	ctx := context.Background()
-	_, err := ed.Read(ctx)
+	_, err = ed.Read(ctx)
 	if err != nil {
 		return err
 	}
