@@ -37,5 +37,5 @@ make すると curl で [skk-dev/dict] から SKK-JISYO.L をダウンロード�
 本ツールは実は [go-readline-skk]、[go-multiline-ny] のテスト用ツールという位置付けだったりします。
 
 [go-readline-ny]: https://github.com/nyaosorg/go-readline-ny
-[go-readline-skk]: https://github.com/hymkor/go-readline-skk
+[go-readline-skk]: https://github.com/nyaosorg/go-readline-skk
 [go-multiline-ny]: https://github.com/hymkor/go-multiline-ny
