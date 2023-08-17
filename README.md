@@ -22,6 +22,19 @@ gm [ファイル名]
 
 [Releases](https://github.com/hymkor/gm/releases) よりどうぞ
 
+### scoop インストーラーが使える場合
+
+```
+scoop install https://raw.githubusercontent.com/hymkor/gm/master/gm.json
+```
+
+or
+
+```
+scoop bucket add hymkor https://github.com/hymkor/scoop-bucket
+scoop install gm
+```
+
 ビルド方法
 ----------
 
