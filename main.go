@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 
 	"github.com/hymkor/go-multiline-ny"
-	"github.com/mattn/go-colorable"
+	"github.com/hymkor/go-windows1x-virtualterminal"
 	"github.com/nyaosorg/go-readline-ny"
 	"github.com/nyaosorg/go-readline-ny/completion"
 	"github.com/nyaosorg/go-readline-ny/keys"
@@ -177,15 +177,17 @@ func mains(args []string) error {
 		}
 		filename = args[0]
 	}
-	f := colorable.EnableColorsStdout(nil)
-	defer f()
+	if closer, err := virtualterminal.EnableStdout(); err != nil {
+		return err
+	} else {
+		defer closer()
+	}
 
 	var ed multiline.Editor
 	ed.SetPrompt(func(w io.Writer, lnum int) (int, error) {
 		return fmt.Fprintf(w, "\x1B[0;32;1m%2d\x1B[0;37;1m ", lnum+1)
 	})
 	ed.LineEditor.Tty = &tty10.Tty{}
-	ed.SetWriter(colorable.NewColorableStdout())
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 
