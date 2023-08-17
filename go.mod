@@ -3,7 +3,7 @@ module github.com/hymkor/gm
 go 1.20
 
 require (
-	github.com/hymkor/go-multiline-ny v0.11.2-0.20230710152237-2e0a2a8c618f
+	github.com/hymkor/go-multiline-ny v0.11.2
 	github.com/mattn/go-colorable v0.1.13
 	github.com/nyaosorg/go-readline-ny v0.13.2
 	github.com/nyaosorg/go-readline-skk v0.0.0-20230816172956-3bac85808f93
