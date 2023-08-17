@@ -17,10 +17,13 @@ gm [ファイル名]
 
 セーブは C-xC-s、終了は C-xC-c です。コピーも行単位でしかサポートしていません(ペーストは対応してる)
 
+ダウンロード
+-----------
+
+[Releases](https://github.com/hymkor/gm/releases) よりどうぞ
+
 ビルド方法
 ----------
-
-まだ開発中なので、バイナリはリリースしていません。
 
 make すると curl で [skk-dev/dict] から SKK-JISYO.L をダウンロードして、bzip2 で圧縮します。
 作成された SKK-JISYO.L.bz2 は Go の embedパッケージで、実行可能ファイルの中に組み込まれます。
