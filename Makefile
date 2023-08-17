@@ -1,5 +1,5 @@
 NAME=$(notdir $(abspath .))
-EXE=$(shell go env EXE)
+EXE=$(shell go env GOEXE)
 TARGET=$(NAME)$(EXE)
 
 $(TARGET) : SKK-JISYO.L.bz2
