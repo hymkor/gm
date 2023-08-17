@@ -1,5 +1,5 @@
-GM - Golang Minimum text editor (凸)/
-===============
+GM - Golang Minimal text editor (凸)/
+=====================================
 
 GM はGo言語で作成したミニマムなオールインワンバイナリなテキストエディターです。
 
