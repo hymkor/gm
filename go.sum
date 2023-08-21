@@ -1,7 +1,7 @@
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
-github.com/hymkor/go-multiline-ny v0.11.2 h1:/1WXIK35cbKZDORfCWUIHQzOYjfkJqKY98msWRJBK6s=
-github.com/hymkor/go-multiline-ny v0.11.2/go.mod h1:gzGBU5oGLtFHYc9Jc+daAXo1D8E/Fq6/OzCcjaOH/Bo=
+github.com/hymkor/go-multiline-ny v0.11.3-0.20230821142508-ed138901b8ab h1:lVeKf/c/SOM2WBT3y6c8BS34MR6I1CZoCBHBAzg3K6g=
+github.com/hymkor/go-multiline-ny v0.11.3-0.20230821142508-ed138901b8ab/go.mod h1:gzGBU5oGLtFHYc9Jc+daAXo1D8E/Fq6/OzCcjaOH/Bo=
 github.com/hymkor/go-windows1x-virtualterminal v0.0.0-20230506143211-cbb6a360b0db h1:vdRR0kEdHBddxMynaycYXeXdSF0LK6wlmxf9Uswk/5s=
 github.com/hymkor/go-windows1x-virtualterminal v0.0.0-20230506143211-cbb6a360b0db/go.mod h1:fn6xn/ygLgbux6kSd6gjzhwHRXvGGlDaoLIkpIUnR70=
 github.com/mattn/go-colorable v0.1.4/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
