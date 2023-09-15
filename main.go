@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"path/filepath"
 
 	"github.com/hymkor/go-multiline-ny"
 	"github.com/hymkor/go-windows1x-virtualterminal"
@@ -72,10 +71,6 @@ func (q *miniBuffer) Leave(w io.Writer) (int, error) {
 
 func (q *miniBuffer) Recurse(originalPrompt string) skk.MiniBuffer {
 	return &skk.MiniBufferOnCurrentLine{OriginalPrompt: originalPrompt}
-}
-
-func progName(path string) string {
-	return filepath.Base(path[:len(path)-len(filepath.Ext(path))])
 }
 
 type cmdSave struct {
