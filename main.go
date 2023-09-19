@@ -69,8 +69,8 @@ func (q *miniBuffer) Leave(w io.Writer) (int, error) {
 	return 0, nil
 }
 
-func (q *miniBuffer) Recurse(originalPrompt string) skk.MiniBuffer {
-	return &skk.MiniBufferOnCurrentLine{OriginalPrompt: originalPrompt}
+func (q *miniBuffer) Recurse() skk.MiniBuffer {
+	return skk.MiniBufferOnCurrentLine{}
 }
 
 type cmdSave struct {
