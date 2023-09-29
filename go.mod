@@ -3,10 +3,10 @@ module github.com/hymkor/gm
 go 1.20
 
 require (
-	github.com/hymkor/go-multiline-ny v0.12.0
+	github.com/hymkor/go-multiline-ny v0.12.1
 	github.com/hymkor/go-windows1x-virtualterminal v0.0.0-20230506143211-cbb6a360b0db
-	github.com/nyaosorg/go-readline-ny v0.14.1
-	github.com/nyaosorg/go-readline-skk v0.0.0-20230917014750-48d41094d63b
+	github.com/nyaosorg/go-readline-ny v0.15.0
+	github.com/nyaosorg/go-readline-skk v0.0.0-20230929171227-5464e4859dba
 )
 
 require (
