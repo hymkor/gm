@@ -17,7 +17,7 @@ TARGET=$(NAME)$(EXE)
 
 $(TARGET) : $(wildcard *.go) SKK-JISYO.L.bz2
 	go fmt
-	go build
+	go build $(GOOPT)
 
 SKK-JISYO.L.bz2:
 	curl https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.L | bzip2 > SKK-JISYO.L.bz2
