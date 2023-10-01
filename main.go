@@ -185,6 +185,7 @@ func mains(args []string) error {
 	ed.LineEditor.Tty = &tty10.Tty{}
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
+	ed.LineEditor.Coloring = &skk.Coloring{}
 
 	ed.BindKey(keys.CtrlC, noOperation{})
 
