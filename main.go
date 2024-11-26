@@ -65,6 +65,7 @@ func (q *miniBuffer) Enter(w io.Writer, prompt string) (int, error) {
 }
 
 func (q *miniBuffer) Leave(w io.Writer) (int, error) {
+	io.WriteString(w, "\x1B[2K")
 	q.rewind()
 	return 0, nil
 }
@@ -109,6 +110,8 @@ func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string,
 		ed: me,
 	}
 	ed1 := &readline.Editor{
+		Writer: me.LineEditor.Writer,
+		Out:    me.LineEditor.Out,
 		PromptWriter: func(w io.Writer) (int, error) {
 			return miniBuffer1.Enter(w, "Save filename: ")
 		},
