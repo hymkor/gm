@@ -192,7 +192,7 @@ func mains(args []string) error {
 
 	ed.BindKey(keys.CtrlC, noOperation{})
 
-	ctrlX := &multiline.PrefixCommand{}
+	ctrlX := ed.NewPrefixCommand("C-x ")
 	ctrlX.BindKey(keys.CtrlC, &readline.GoCommand{
 		Name: "Quit",
 		Func: func(ctx context.Context, B *readline.Buffer) readline.Result {
