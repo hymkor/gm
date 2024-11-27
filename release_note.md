@@ -1,3 +1,7 @@
+v0.0.2
+======
+Nov 28, 2024
+
 - Fix: Dirty flag was not set on inserting an empty line after an empty line[^1]
 - Use [go-windows1x-virtualterminal] instead of [go-colorable]
 - Use [go-readline-ny/tty10] instead of [go-readline-ny/tty8]
