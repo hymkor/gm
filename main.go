@@ -191,6 +191,7 @@ func mains(args []string) error {
 	ed.LineEditor.Coloring = &skk.Coloring{}
 
 	ed.BindKey(keys.CtrlC, noOperation{})
+	ed.BindKey(keys.Escape, noOperation{})
 
 	ctrlX := ed.NewPrefixCommand("C-x ")
 	ctrlX.BindKey(keys.CtrlC, &readline.GoCommand{
