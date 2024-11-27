@@ -13,7 +13,7 @@
 [go-multiline-ny v0.18.1]: https://github.com/hymkor/go-multiline-ny/releases/tag/v0.18.1
 [go-readline-skk v0.4.2]: https://github.com/nyaosorg/go-readline-skk/releases/tag/v0.4.2
 
-v0.1.0
+v0.0.1
 ======
 Aug 17, 2023
 
