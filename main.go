@@ -121,8 +121,8 @@ func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string,
 		},
 		Default: defaultText,
 	}
-	ed1.BindKey(keys.CtrlI, completion.CmdCompletion{
-		Completion: completion.File{},
+	ed1.BindKey(keys.CtrlI, &completion.CmdCompletion2{
+		Candidates: completion.PathComplete,
 	})
 	return ed1.ReadLine(ctx)
 }
