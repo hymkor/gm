@@ -11,13 +11,14 @@ import (
 	"io"
 	"os"
 
-	"github.com/hymkor/go-multiline-ny"
-	"github.com/hymkor/go-windows1x-virtualterminal"
 	"github.com/nyaosorg/go-readline-ny"
 	"github.com/nyaosorg/go-readline-ny/completion"
 	"github.com/nyaosorg/go-readline-ny/keys"
-	"github.com/nyaosorg/go-readline-ny/tty10"
 	"github.com/nyaosorg/go-readline-skk"
+	"github.com/nyaosorg/go-ttyadapter/tty10"
+
+	"github.com/hymkor/go-multiline-ny"
+	"github.com/hymkor/go-windows1x-virtualterminal"
 )
 
 //go:embed SKK-JISYO.L.bz2
@@ -121,8 +122,8 @@ func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string,
 		},
 		Default: defaultText,
 	}
-	ed1.BindKey(keys.CtrlI, completion.CmdCompletion{
-		Completion: completion.File{},
+	ed1.BindKey(keys.CtrlI, &completion.CmdCompletion2{
+		Candidates: completion.PathComplete,
 	})
 	return ed1.ReadLine(ctx)
 }
