@@ -3,27 +3,34 @@ ifeq ($(OS),Windows_NT)
     SET=set
     DEL=del
     NUL=nul
+    WHICH=where.exe
 else
     SET=export
     DEL=rm
     NUL=/dev/null
+    WHICH=which
+endif
+
+ifndef GO
+    SUPPORTGO=go1.20.14
+    GO:=$(shell $(WHICH) $(SUPPORTGO) 2>$(NUL) || echo go)
 endif
 
 NAME=$(notdir $(CURDIR))
 VERSION=$(shell git describe --tags 2>$(NUL) || echo v0.0.0)
-EXE=$(shell go env GOEXE)
+EXE=$(shell $(GO) env GOEXE)
 GOOPT=-ldflags "-s -w -X main.version=$(VERSION)"
 TARGET=$(NAME)$(EXE)
 
-$(TARGET) : $(wildcard *.go) SKK-JISYO.L.bz2
-	go fmt
-	go build $(GOOPT)
+build : $(wildcard *.go) SKK-JISYO.L.bz2
+	$(GO) fmt
+	$(GO) build $(GOOPT)
 
 SKK-JISYO.L.bz2:
 	curl https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.L | bzip2 > SKK-JISYO.L.bz2
 
 _dist:
-	$(SET) "CGO_ENABLED=0" && go build $(GOOPT)
+	$(SET) "CGO_ENABLED=0" && $(GO) build $(GOOPT)
 	zip -9 $(NAME)-$(VERSION)-$(GOOS)-$(GOARCH).zip $(NAME)$(EXE)
 
 dist:
