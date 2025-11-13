@@ -190,7 +190,7 @@ func mains(args []string) error {
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 	const resetColor = "\x1B[0m"
-	ed.LineEditor.Highlight = []readline.Highlight{
+	ed.Highlight = []readline.Highlight{
 		skk.BlackMarkerHighlight,
 		skk.WhiteMarkerHighlight,
 	}
