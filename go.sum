@@ -4,6 +4,8 @@ github.com/hymkor/go-multiline-ny v0.22.1 h1:6WvTcT0YB7XFukDyCZFHZtJDP0aSmRkcRi0
 github.com/hymkor/go-multiline-ny v0.22.1/go.mod h1:9FsFQa3nIhxAjz1yL0kK/Oya/LB4fBsHckY3ZqBcTJY=
 github.com/hymkor/go-windows1x-virtualterminal v0.5.0 h1:UIMMK09QSLCdM9Up4ny6qmBOrrn3rozxIRPfEUhxmTo=
 github.com/hymkor/go-windows1x-virtualterminal v0.5.0/go.mod h1:M/X0FJL+4wQtrm03JnL9gVyvhyscJk3t+ItZ29sla2g=
+github.com/hymkor/sxencode-go v0.3.0 h1:IfsgPuLLJptw3fczZKLSZjtT4cJ0qfPnFMEWnaG9yuU=
+github.com/hymkor/sxencode-go v0.3.0/go.mod h1:zdsmILW2sJbtydTaB7lwTqnl63XCTxRjTqDDZBA5hV0=
 github.com/mattn/go-colorable v0.1.14 h1:9A9LHSqF/7dyVVX6g0U9cwm9pG3kP9gSzcuIPHPsaIE=
 github.com/mattn/go-colorable v0.1.14/go.mod h1:6LmQG8QLFO4G5z1gPvYEzlUgJ2wF+stgPZH1UqBm1s8=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
@@ -16,8 +18,8 @@ github.com/nyaosorg/go-box/v3 v3.0.0 h1:W5qfScEkKBoD68gbP/lwfWlvcTRB0rwXkhL+9iC6
 github.com/nyaosorg/go-box/v3 v3.0.0/go.mod h1:70GsE9mIh7JKVCxt71q3jEijO6C9YJmOZqWpPa9w+GY=
 github.com/nyaosorg/go-readline-ny v1.12.3 h1:nF+ywMS1XFpIeONssuUxmu20S2tQIqkq1ahdEXBhIYU=
 github.com/nyaosorg/go-readline-ny v1.12.3/go.mod h1:pFXLTklUi8JVi6gI3HdnA3Wak/7cl+kx2q8kIIiAf/c=
-github.com/nyaosorg/go-readline-skk v0.5.0 h1:+YWtmWveOV2ovchQAP3AHdTa9yfd9rbFn+/ZyqEfw18=
-github.com/nyaosorg/go-readline-skk v0.5.0/go.mod h1:Fe48AMXOmzDXIz9wDu+BnfnALnrZrU1deema5D70sTA=
+github.com/nyaosorg/go-readline-skk v0.6.1 h1:k8A50gJKb9WpDKEKHdXAZriOAWi8APJSZf07tPqb5ok=
+github.com/nyaosorg/go-readline-skk v0.6.1/go.mod h1:wjcWJkHorPQ2BepphQH33TbdAXcVmmYDeXZc4Y6dbzc=
 github.com/nyaosorg/go-ttyadapter v0.1.0 h1:3U3ytc35SOdkrn15rHLG36ozkmqBeGqhQgNufoep1AI=
 github.com/nyaosorg/go-ttyadapter v0.1.0/go.mod h1:w6ySb/Y8rpr0uIju4vN/TMRHC/6ayabORHmEVs6d/qE=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

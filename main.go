@@ -189,8 +189,13 @@ func mains(args []string) error {
 	ed.LineEditor.Tty = &tty10.Tty{}
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
-	ed.LineEditor.Coloring = &skk.Coloring{}
-
+	const resetColor = "\x1B[0m"
+	ed.LineEditor.Highlight = []readline.Highlight{
+		skk.BlackMarkerHighlight,
+		skk.WhiteMarkerHighlight,
+	}
+	ed.ResetColor = resetColor
+	ed.DefaultColor = resetColor
 	ed.BindKey(keys.CtrlC, noOperation{})
 	ed.BindKey(keys.Escape, noOperation{})
 
