@@ -1,3 +1,9 @@
+- (#3) Updated go-multiline-ny to v0.22.2 and aligned with API changes:
+    - Replaced `readline.Editor.Out` with `multiline.Editor.Out()`
+    - Replaced `readline.Editor.Writer` with `multiline.Editor.Writer()`
+    - Replaced access to `.Tty` with `multiline.Editor.SetTty()`
+    - Replaced `readline.Editor.Highlight` with `multiline.Editor.Highlight`
+
 v0.0.2
 ======
 Nov 28, 2024
