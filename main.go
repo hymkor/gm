@@ -186,7 +186,7 @@ func mains(args []string) error {
 	ed.SetPrompt(func(w io.Writer, lnum int) (int, error) {
 		return fmt.Fprintf(w, "\x1B[0;32;1m%2d\x1B[0;37;1m ", lnum+1)
 	})
-	ed.LineEditor.Tty = &tty10.Tty{}
+	ed.SetTty(&tty10.Tty{})
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 	const resetColor = "\x1B[0m"
