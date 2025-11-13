@@ -111,8 +111,8 @@ func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string,
 		ed: me,
 	}
 	ed1 := &readline.Editor{
-		Writer: me.LineEditor.Writer,
 		Out:    me.LineEditor.Out,
+		Writer: me.Writer(),
 		PromptWriter: func(w io.Writer) (int, error) {
 			return miniBuffer1.Enter(w, "Save filename: ")
 		},
