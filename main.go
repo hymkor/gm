@@ -111,8 +111,8 @@ func ask(ctx context.Context, me *multiline.Editor, defaultText string) (string,
 		ed: me,
 	}
 	ed1 := &readline.Editor{
-		Writer: me.LineEditor.Writer,
-		Out:    me.LineEditor.Out,
+		Writer: me.Writer(),
+		Out:    me.Out(),
 		PromptWriter: func(w io.Writer) (int, error) {
 			return miniBuffer1.Enter(w, "Save filename: ")
 		},
@@ -186,11 +186,11 @@ func mains(args []string) error {
 	ed.SetPrompt(func(w io.Writer, lnum int) (int, error) {
 		return fmt.Fprintf(w, "\x1B[0;32;1m%2d\x1B[0;37;1m ", lnum+1)
 	})
-	ed.LineEditor.Tty = &tty10.Tty{}
+	ed.SetTty(&tty10.Tty{})
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 	const resetColor = "\x1B[0m"
-	ed.LineEditor.Highlight = []readline.Highlight{
+	ed.Highlight = []readline.Highlight{
 		skk.BlackMarkerHighlight,
 		skk.WhiteMarkerHighlight,
 	}
