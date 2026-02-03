@@ -1,6 +1,10 @@
 Release notes
 =============
 
+v0.0.4
+------
+Feb 3, 2026
+
 - Update go-readline-ny from v1.12.3 to v1.14.1 (#4)
 - Update go-multiline-ny from v0.22.2 to v0.22.4
 - Update go-ttyadapter from v0.1.0 to v0.3.0
