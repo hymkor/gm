@@ -5,9 +5,9 @@ go 1.20
 require (
 	github.com/hymkor/go-multiline-ny v0.22.2
 	github.com/hymkor/go-windows1x-virtualterminal v0.5.0
-	github.com/nyaosorg/go-readline-ny v1.12.3
+	github.com/nyaosorg/go-readline-ny v1.14.1
 	github.com/nyaosorg/go-readline-skk v0.6.1
-	github.com/nyaosorg/go-ttyadapter v0.1.0
+	github.com/nyaosorg/go-ttyadapter v0.3.0
 )
 
 require (
