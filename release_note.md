@@ -1,3 +1,8 @@
+- Update go-readline-ny from v1.12.3 to v1.14.1 (#4)
+- Update go-multiline-ny from v0.22.2 to v0.22.4
+- Update go-ttyadapter from v0.1.0 to v0.3.0
+  - Use `tty10pe.Tty` instead of `tty10.Tty`
+
 v0.0.3
 ======
 Nov 23, 2025
