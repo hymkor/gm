@@ -15,7 +15,7 @@ import (
 	"github.com/nyaosorg/go-readline-ny/completion"
 	"github.com/nyaosorg/go-readline-ny/keys"
 	"github.com/nyaosorg/go-readline-skk"
-	"github.com/nyaosorg/go-ttyadapter/tty10"
+	"github.com/nyaosorg/go-ttyadapter/tty10pe"
 
 	"github.com/hymkor/go-multiline-ny"
 	"github.com/hymkor/go-windows1x-virtualterminal"
@@ -186,7 +186,7 @@ func mains(args []string) error {
 	ed.SetPrompt(func(w io.Writer, lnum int) (int, error) {
 		return fmt.Fprintf(w, "\x1B[0;32;1m%2d\x1B[0;37;1m ", lnum+1)
 	})
-	ed.SetTty(&tty10.Tty{})
+	ed.SetTty(&tty10pe.Tty{})
 	ed.SetDefault(lines)
 	ed.SetMoveEnd(*flagMoveEnd)
 	const resetColor = "\x1B[0m"
