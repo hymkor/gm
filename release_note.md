@@ -1,10 +1,17 @@
+Release notes
+=============
+
+v0.0.4
+------
+Feb 3, 2026
+
 - Update go-readline-ny from v1.12.3 to v1.14.1 (#4)
 - Update go-multiline-ny from v0.22.2 to v0.22.4
 - Update go-ttyadapter from v0.1.0 to v0.3.0
   - Use `tty10pe.Tty` instead of `tty10.Tty`
 
 v0.0.3
-======
+------
 Nov 23, 2025
 
 - (#3) Updated go-multiline-ny to v0.22.2 and aligned with API changes:
@@ -14,7 +21,7 @@ Nov 23, 2025
     - Replaced `readline.Editor.Highlight` with `multiline.Editor.Highlight`
 
 v0.0.2
-======
+------
 Nov 28, 2024
 
 - Fix: Dirty flag was not set on inserting an empty line after an empty line[^1]
@@ -33,7 +40,7 @@ Nov 28, 2024
 [go-readline-skk v0.4.2]: https://github.com/nyaosorg/go-readline-skk/releases/tag/v0.4.2
 
 v0.0.1
-======
+------
 Aug 17, 2023
 
 - The first release
