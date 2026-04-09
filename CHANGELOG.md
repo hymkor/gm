@@ -1,5 +1,5 @@
-Release notes
-=============
+Changelog
+=========
 
 - Add newline marker rendering using OnAfterRender (#7)
 
