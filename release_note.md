@@ -1,6 +1,8 @@
 Release notes
 =============
 
+- Add newline marker rendering using OnAfterRender (#7)
+
 v0.0.4
 ------
 Feb 3, 2026
