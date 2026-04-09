@@ -198,6 +198,11 @@ func mains(args []string) error {
 	ed.DefaultColor = resetColor
 	ed.BindKey(keys.CtrlC, noOperation{})
 	ed.BindKey(keys.Escape, noOperation{})
+	ed.OnAfterRender = func(w io.Writer, availWidth int) {
+		if availWidth >= 2 {
+			io.WriteString(w, "\x1B[33m↓\x1B[39m")
+		}
+	}
 
 	ctrlX := ed.NewPrefixCommand("C-x ")
 	ctrlX.BindKey(keys.CtrlC, &readline.GoCommand{
