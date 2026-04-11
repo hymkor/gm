@@ -23,7 +23,7 @@ GOOPT=-ldflags "-s -w -X main.version=$(VERSION)"
 TARGET=$(NAME)$(EXE)
 
 build : $(wildcard *.go) SKK-JISYO.L.bz2
-	$(GO) fmt
+	$(GO) fmt ./...
 	$(GO) build $(GOOPT)
 
 SKK-JISYO.L.bz2:
@@ -40,12 +40,12 @@ dist:
 	$(SET) "GOOS=windows" && $(SET) "GOARCH=amd64" && $(MAKE) _dist
 
 clean:
-	rm *.zip gm gm$(EXE)
+	$(DEL) *.zip gm gm$(EXE)
 
 manifest:
-	make-scoop-manifest *-windows-*.zip > $(NAME).json
+	$(GO) run github.com/hymkor/make-scoop-manifest@latest -all *-windows-*.zip > $(NAME).json
 
 release:
-	pwsh -Command "latest-notes.ps1" | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
+	$(GO) run github.com/hymkor/latest-notes@latest | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
 
 .PHONY: all test dist _dist clean manifest release
